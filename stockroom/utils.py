@@ -1,5 +1,4 @@
 from django.conf import settings
-from counter import Counter
 import os
 
 
