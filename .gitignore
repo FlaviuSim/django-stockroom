@@ -1,3 +1,6 @@
+build/
+dist/
+django_stockroom.egg-info/
 .DS_Store
 *.pyc
 stockroom/migrations/*
