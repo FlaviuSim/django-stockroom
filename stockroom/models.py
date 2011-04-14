@@ -231,7 +231,7 @@ class PriceHistory(models.Model):
         verbose_name_plural = 'price history'
     
     def __unicode__(self):
-        return self.price
+        return _("%s" % self.price)
         
 class Cart(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
