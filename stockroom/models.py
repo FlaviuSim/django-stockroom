@@ -3,7 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext as _
 from datetime import datetime
-from managers import CategoryChildrenManager, ActiveInventoryManager
+from managers import CategoryChildrenManager, ProductRelationshipManager
 from units import STOCKROOM_UNITS
 
 # Set default values
@@ -35,6 +35,10 @@ class Product(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     last_updates = models.DateTimeField(auto_now=True)
     thumbnail = models.ForeignKey('ProductImage', null=True, blank=True, related_name='product_thumbnails')
+
+    objects = models.Manager()
+    related_products = ProductRelationshipManager()
+
     
     def __unicode__(self):
         return _(self.title)
@@ -231,7 +235,7 @@ class PriceHistory(models.Model):
         verbose_name_plural = 'price history'
     
     def __unicode__(self):
-        return _("%s" % self.price)
+        return _("%s - $%d" % (self.stock_item.product.title, self.price))
         
 class Cart(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
