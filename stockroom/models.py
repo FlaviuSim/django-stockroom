@@ -20,7 +20,7 @@ class Brand(models.Model):
     name = models.CharField(max_length=120)
     description = models.TextField(null=True, blank=True)
     manufacturer = models.ForeignKey('Manufacturer', null=True, blank=True)
-    logo = models.ImageField(upload_to='stockroom/brand_logos', null=True, blank=True)
+    logo = models.ImageField(upload_to='stockroom/brand_logos/', null=True, blank=True)
     
     def __unicode__(self):
         return _(self.name)
@@ -71,7 +71,7 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey('Product', related_name='images')
     attributes = models.ManyToManyField('StockItemAttributeValue', blank=True, null=True)
-    image_file = models.ImageField(upload_to='stockroom/products/%Y/%m/%d')
+    image_file = models.ImageField(upload_to='stockroom/products/%Y/%m/%d/')
     caption = models.TextField(blank=True, null=True)
     
     class Meta:

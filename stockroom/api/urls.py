@@ -1,18 +1,14 @@
 from django.conf.urls.defaults import *
 from piston.resource import Resource
 
-from handlers import ProductCategoryHandler, ProductHandler, StockHandler, CartHandler
+from handlers import CategoryHandler, ProductHandler, ItemHandler
 
-category_handler = Resource(ProductCategoryHandler)
+category_handler = Resource(CategoryHandler)
 product_handler = Resource(ProductHandler)
-stock_handler = Resource(StockHandler)
-cart_handler = Resource(CartHandler)
+item_handler = Resource(ItemHandler)
 
 urlpatterns = patterns('',
-    url(r'^categories/$', category_handler),
-    url(r'^categories/(?P<slug>[-\w]+)/$', category_handler),
-    url(r'^products/$', product_handler),
-    url(r'^products/(?P<product_pk>\d+)/$', product_handler),
-    url(r'^cart/$', cart_handler),
-    url(r'^cart/(?P<pk>\d+)/$', cart_handler),
+    url(r'^category/(?P<category_pk>\d+)/$', category_handler),
+    url(r'^product/(?P<product_pk>\d+)/$', product_handler),
+    url(r'^item/(?P<item_pk>\d+)/$', item_handler),
 )
