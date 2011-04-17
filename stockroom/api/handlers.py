@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models import Q, Min
 from django.shortcuts import get_object_or_404
 
@@ -5,13 +6,11 @@ from piston.handler import BaseHandler
 from piston.utils import validate, rc
 from easy_thumbnails.files import get_thumbnailer
 
-from stockroom.cart import Cart
-# from stockroom.forms import CartItemForm
 from stockroom.models import ProductCategory, Product, StockItem
 
 
-MAX_HEIGHT = 360
-MAX_WIDTH = 205
+ITEM_THUMBNAIL_MAX_HEIGHT = getattr(settings, "ITEM_THUMBNAIL_MAX_HEIGHT", 360)
+ITEM_THUMBNAIL_MAX_WIDTH = getattr(settings, "ITEM_THUMBNAIL_MAX_WIDTH", 205)
 
 class CsrfExemptBaseHandler(BaseHandler):
     """
@@ -51,7 +50,7 @@ class ItemHandler(BaseHandler):
         if p.images.count() > 0:
             if p.thumbnail.image_file:
                 thumbnail_file = p.thumbnail.image_file
-                thumbnail_options = dict(size=(MAX_WIDTH, MAX_HEIGHT))
+                thumbnail_options = dict(size=(ITEM_THUMBNAIL_MAX_WIDTH, ITEM_THUMBNAIL_MAX_HEIGHT))
                 thumbnail = get_thumbnailer(thumbnail_file).get_thumbnail(thumbnail_options)
                 product['image'] = thumbnail.url
             else:
